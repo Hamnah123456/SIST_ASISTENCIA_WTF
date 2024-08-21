@@ -2,7 +2,7 @@
 CREATE DATABASE	Asistencia_Academia_Taekwondo_BI;
 GO
 -- Seleccion BD
-USE Asistencia_Academia_Taekwondo_BI
+USE Asistencia_Academia_Taekwondo_BI;
 
 -- Creación de tablas:
 CREATE TABLE dim_Estudiantes(

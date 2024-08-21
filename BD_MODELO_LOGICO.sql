@@ -14,9 +14,10 @@ Fecha_Nacimiento DATE NOT NULL,
 Numero_Documento INT UNIQUE NOT NULL,
 Celular VARCHAR(20) NULL,
 Procedimiento_Salida VARCHAR(200) NOT NULL,
-Enfermedad VARCHAR(250) unique NULL,
+Enfermedad VARCHAR(250) NULL,
 Fecha_Registro DATE NOT NULL
 );
+
 
 CREATE TABLE Instructor(
 ID_Instructor INT PRIMARY KEY IDENTITY(1,1) NOT NULL,
