@@ -44,205 +44,136 @@ VALUES
 
 
 -- Inserccion de datos de las tablas pagos 
--- Estudiantes_ID
+-- Variables de control
+DECLARE @ID_Estudiante INT;
+DECLARE @Fecha_Registro DATE;
+DECLARE @Mes INT;
 
-INSERT INTO dbo.Pagos (Estudiantes_ID, Monto, Fecha_Pago, Metodo_Pago)
-VALUES 
-(33, 120, '2024-01-19', 'Efectivo'),
-(33, 120, '2024-02-19', 'Efectivo'),
-(33, 120, '2024-03-19', 'Efectivo'),
-(33, 120, '2024-04-19', 'Efectivo'),
-(33, 120, '2024-05-19', 'Efectivo'),
-(33, 120, '2024-06-19', 'Efectivo'),
-(33, 120, '2024-07-19', 'Efectivo'),
-(33, 120, '2024-08-19', 'Efectivo'),
-(34, 120, '2024-01-10', 'Efectivo'),
-(34, 120, '2024-02-10', 'Efectivo'),
-(34, 120, '2024-03-10', 'Efectivo'),
-(34, 120, '2024-04-10', 'Efectivo'),
-(34, 120, '2024-05-10', 'Efectivo'),
-(34, 120, '2024-06-10', 'Efectivo'),
-(34, 120, '2024-07-10', 'Efectivo'),
-(34, 120, '2024-08-10', 'Efectivo'),
-(35, 120, '2024-01-15', 'Efectivo'),
-(35, 120, '2024-02-15', 'Efectivo'),
-(35, 120, '2024-03-15', 'Efectivo'),
-(35, 120, '2024-04-15', 'Efectivo'),
-(35, 120, '2024-05-15', 'Efectivo'),
-(35, 120, '2024-06-15', 'Efectivo'),
-(35, 120, '2024-07-15', 'Efectivo'),
-(35, 120, '2024-08-15', 'Efectivo'),
-(36, 120, '2024-01-05', 'Efectivo'),
-(36, 120, '2024-02-05', 'Efectivo'),
-(36, 120, '2024-03-05', 'Efectivo'),
-(36, 120, '2024-04-05', 'Efectivo'),
-(36, 120, '2024-05-05', 'Efectivo'),
-(36, 120, '2024-06-05', 'Efectivo'),
-(36, 120, '2024-07-05', 'Efectivo'),
-(36, 102, '2024-08-05', 'Efectivo'),
-(37, 120, '2024-01-05', 'Efectivo'),
-(37, 120, '2024-02-05', 'Efectivo'),
-(37, 120, '2024-03-05', 'Efectivo'),
-(37, 120, '2024-04-05', 'Efectivo'),
-(37, 120, '2024-05-05', 'Efectivo'),
-(37, 120, '2024-06-05', 'Efectivo'),
-(37, 120, '2024-07-05', 'Efectivo'),
-(37, 120, '2024-08-05', 'Efectivo'),
-(38, 120, '2024-01-05', 'Efectivo'),
-(38, 120, '2024-02-05', 'Efectivo'),
-(38, 120, '2024-03-05', 'Efectivo'),
-(38, 120, '2024-04-05', 'Efectivo'),
-(38, 120, '2024-05-05', 'Efectivo'),
-(38, 120, '2024-06-05', 'Efectivo'),
-(38, 120, '2024-07-05', 'Efectivo'),
-(38, 120, '2024-08-05', 'Efectivo'),
-(39, 120, '2024-01-05', 'Efectivo'),
-(39, 120, '2024-02-05', 'Efectivo'),
-(39, 120, '2024-03-05', 'Efectivo'),
-(39, 120, '2024-04-05', 'Efectivo'),
-(39, 120, '2024-05-05', 'Efectivo'),
-(39, 120, '2024-06-05', 'Efectivo'),
-(39, 120, '2024-07-05', 'Efectivo'),
-(39, 120, '2024-08-05', 'Efectivo'),
-(40, 102, '2024-01-05', 'Efectivo'),
-(40, 120, '2024-02-05', 'Efectivo'),
-(40, 120, '2024-03-05', 'Efectivo'),
-(40, 120, '2024-04-05', 'Efectivo'),
-(40, 120, '2024-05-05', 'Efectivo'),
-(40, 120, '2024-06-05', 'Efectivo'),
-(40, 120, '2024-07-05', 'Efectivo'),
-(40, 120, '2024-08-05', 'Efectivo'),
-(41, 120, '2024-01-05', 'Efectivo'),
-(41, 120, '2024-02-05', 'Efectivo'),
-(41, 120, '2024-03-05', 'Efectivo'),
-(41, 120, '2024-04-05', 'Efectivo'),
-(41, 120, '2024-05-05', 'Efectivo'),
-(41, 120, '2024-06-05', 'Efectivo'),
-(41, 120, '2024-07-05', 'Efectivo'),
-(41, 120, '2024-08-05', 'Efectivo'),
-(42, 120, '2024-01-05', 'Efectivo'),
-(42, 120, '2024-02-05', 'Efectivo'),
-(42, 120, '2024-03-05', 'Efectivo'),
-(42, 120, '2024-04-05', 'Efectivo'),
-(42, 120, '2024-05-05', 'Efectivo'),
-(42, 120, '2024-06-05', 'Efectivo'),
-(42, 120, '2024-07-05', 'Efectivo'),
-(42, 120, '2024-08-05', 'Efectivo'),
-(43, 120, '2024-01-05', 'Efectivo'),
-(43, 120, '2024-02-05', 'Efectivo'),
-(43, 120, '2024-03-05', 'Efectivo'),
-(43, 120, '2024-04-05', 'Efectivo'),
-(43, 120, '2024-05-05', 'Efectivo'),
-(43, 120, '2024-06-05', 'Efectivo'),
-(43, 120, '2024-07-05', 'Efectivo'),
-(43, 120, '2024-08-05', 'Efectivo'),
-(44, 120, '2024-01-05', 'Efectivo'),
-(44, 120, '2024-02-05', 'Efectivo'),
-(44, 120, '2024-03-05', 'Efectivo'),
-(44, 120, '2024-04-05', 'Efectivo'),
-(44, 120, '2024-05-05', 'Efectivo'),
-(44, 120, '2024-06-05', 'Efectivo'),
-(44, 120, '2024-07-05', 'Efectivo'),
-(44, 120, '2024-08-05', 'Efectivo'),
-(45, 120, '2024-01-05', 'Efectivo'),
-(45, 120, '2024-02-05', 'Efectivo'),
-(45, 120, '2024-03-05', 'Efectivo'),
-(45, 120, '2024-04-05', 'Efectivo'),
-(45, 120, '2024-05-05', 'Efectivo'),
-(45, 120, '2024-06-05', 'Efectivo'),
-(45, 120, '2024-07-05', 'Efectivo'),
-(45, 120, '2024-08-05', 'Efectivo'),
-(46, 120, '2024-01-05', 'Efectivo'),
-(46, 120, '2024-02-05', 'Efectivo'),
-(46, 120, '2024-03-05', 'Efectivo'),
-(46, 120, '2024-04-05', 'Efectivo'),
-(46, 120, '2024-05-05', 'Efectivo'),
-(46, 120, '2024-06-05', 'Efectivo'),
-(46, 102, '2024-07-05', 'Efectivo'),
-(46, 120, '2024-08-05', 'Efectivo'),
-(47, 120, '2024-01-05', 'Efectivo'),
-(47, 120, '2024-02-05', 'Efectivo'),
-(47, 120, '2024-03-05', 'Efectivo'),
-(47, 120, '2024-04-05', 'Efectivo'),
-(47, 120, '2024-05-05', 'Efectivo'),
-(47, 120, '2024-06-05', 'Efectivo'),
-(47, 120, '2024-07-05', 'Efectivo'),
-(48, 120, '2024-01-05', 'Efectivo'),
-(48, 120, '2024-02-05', 'Efectivo'),
-(48, 120, '2024-03-05', 'Efectivo'),
-(48, 120, '2024-04-05', 'Efectivo'),
-(48, 120, '2024-05-05', 'Efectivo'),
-(48, 120, '2024-06-05', 'Efectivo'),
-(48, 120, '2024-07-05', 'Efectivo'),
-(48, 120, '2024-08-05', 'Efectivo'),
-(49, 120, '2024-01-05', 'Efectivo'),
-(49, 120, '2024-02-05', 'Efectivo'),
-(49, 120, '2024-03-05', 'Efectivo'),
-(49, 120, '2024-04-05', 'Efectivo'),
-(49, 120, '2024-05-05', 'Efectivo'),
-(49, 120, '2024-06-05', 'Efectivo'),
-(49, 120, '2024-07-05', 'Efectivo'),
-(49, 120, '2024-08-05', 'Efectivo'),
-(50, 120, '2024-01-05', 'Efectivo'),
-(50, 120, '2024-02-05', 'Efectivo'),
-(50, 120, '2024-03-05', 'Efectivo'),
-(50, 120, '2024-04-05', 'Efectivo'),
-(50, 120, '2024-05-05', 'Efectivo'),
-(50, 120, '2024-06-05', 'Efectivo'),
-(50, 120, '2024-07-05', 'Efectivo'),
-(50, 120, '2024-08-05', 'Efectivo'),
-(51, 120, '2024-01-05', 'Efectivo'),
-(51, 120, '2024-02-05', 'Efectivo'),
-(51, 120, '2024-03-05', 'Efectivo'),
-(51, 120, '2024-04-05', 'Efectivo'),
-(51, 120, '2024-05-05', 'Efectivo'),
-(51, 120, '2024-06-05', 'Efectivo'),
-(51, 120, '2024-07-05', 'Efectivo'),
-(51, 120, '2024-08-05', 'Efectivo'),
-(52, 120, '2024-01-05', 'Efectivo'),
-(52, 120, '2024-02-05', 'Efectivo'),
-(52, 120, '2024-03-05', 'Efectivo'),
-(52, 120, '2024-04-05', 'Efectivo'),
-(52, 120, '2024-05-05', 'Efectivo'),
-(52, 120, '2024-06-05', 'Efectivo'),
-(52, 120, '2024-07-05', 'Efectivo'),
-(52, 120, '2024-08-05', 'Efectivo'),
-(53, 120, '2024-01-05', 'Efectivo'),
-(53, 120, '2024-02-05', 'Efectivo'),
-(53, 120, '2024-03-05', 'Efectivo'),
-(53, 120, '2024-04-05', 'Efectivo'),
-(53, 120, '2024-05-05', 'Efectivo'),
-(53, 120, '2024-06-05', 'Efectivo'),
-(53, 120, '2024-07-05', 'Efectivo'),
-(53, 120, '2024-08-05', 'Efectivo');
+-- Cursor para recorrer los estudiantes
+DECLARE EstudianteCursor CURSOR FOR
+SELECT ID_Estudiante, Fecha_Registro
+FROM Estudiantes;
+
+-- Abrir el cursor
+OPEN EstudianteCursor;
+
+-- Obtener el primer registro
+FETCH NEXT FROM EstudianteCursor INTO @ID_Estudiante, @Fecha_Registro;
+
+-- Bucle a través de todos los registros de estudiantes
+WHILE @@FETCH_STATUS = 0
+BEGIN
+    -- Insertar un pago por cada mes hasta el mes actual
+    SET @Mes = 1;
+    WHILE @Mes <= MONTH(GETDATE())
+    BEGIN
+        INSERT INTO Pagos (Estudiantes_ID, Monto, Fecha_Pago, Metodo_Pago)
+        VALUES (@ID_Estudiante, 120, DATEADD(MONTH, @Mes - 1, DATEFROMPARTS(YEAR(GETDATE()), MONTH(@Fecha_Registro), DAY(@Fecha_Registro))), 'Efectivo');
+
+        -- Incrementar el contador de meses
+        SET @Mes = @Mes + 1;
+    END
+
+    -- Obtener el siguiente registro
+    FETCH NEXT FROM EstudianteCursor INTO @ID_Estudiante, @Fecha_Registro;
+END
+
+-- Cerrar y liberar el cursor
+CLOSE EstudianteCursor;
+DEALLOCATE EstudianteCursor;
+
 
 
 -- Inserccion de datos de las tablas Asistencia
 
--- Declarar variables
-DECLARE @NumRegistros INT = 200; -- Número de registros a insertar
+-- Variables de configuración
+DECLARE @FechaInicio DATE = '2024-01-08'; -- Fecha de inicio de las asistencias
+DECLARE @FechaFin DATE = GETDATE();       -- Fecha de fin (hoy)
+DECLARE @DiaSemana NVARCHAR(10);
+
+-- Variables para almacenar datos temporales
 DECLARE @Estudiante_ID INT;
 DECLARE @Clase_ID INT;
 DECLARE @Fecha DATE;
+DECLARE @Hora_Inicio TIME;
+DECLARE @Hora_Fin TIME;
 
--- Bucle para insertar registros aleatorios
-WHILE @NumRegistros > 0
+-- Cursores para recorrer los estudiantes y clases
+DECLARE EstudianteCursor CURSOR FOR
+SELECT ID_Estudiante FROM Estudiantes;
+
+DECLARE ClaseCursor CURSOR FOR
+SELECT ID_Clase, Día_Semana, Hora_Inicio, Hora_Fin FROM Clase;
+
+-- Abrir el cursor de estudiantes
+OPEN EstudianteCursor;
+
+-- Obtener el primer estudiante
+FETCH NEXT FROM EstudianteCursor INTO @Estudiante_ID;
+
+-- Bucle a través de los estudiantes
+WHILE @@FETCH_STATUS = 0
 BEGIN
-    -- Seleccionar un Estudiante_ID aleatorio
-    SET @Estudiante_ID = (SELECT TOP 1 ID_Estudiante FROM dbo.Estudiantes ORDER BY NEWID());
+    -- Establecer fecha de inicio para cada estudiante
+    SET @Fecha = @FechaInicio;
 
-    -- Seleccionar un Clase_ID aleatorio
-    SET @Clase_ID = (SELECT TOP 1 ID_Clase FROM dbo.Clase ORDER BY NEWID());
+    -- Bucle a través de las fechas hasta la fecha actual
+    WHILE @Fecha <= @FechaFin
+    BEGIN
+        -- Obtener el día de la semana en formato textual
+        SET @DiaSemana = DATENAME(WEEKDAY, @Fecha);
 
-    -- Generar una fecha aleatoria en el año 2024
-    SET @Fecha = DATEADD(DAY, ABS(CHECKSUM(NEWID()) % 365), '2024-01-01');
+        -- Verificar si el estudiante asistirá (probabilidad del 70%)
+        IF (ABS(CHECKSUM(NEWID())) % 100) < 70
+        BEGIN
+            -- Abrir el cursor de clases
+            OPEN ClaseCursor;
 
-    -- Insertar el registro en la tabla Asistencia
-    INSERT INTO dbo.Asistencia (Estudiante_ID, Clase_ID, Fecha)
-    VALUES (@Estudiante_ID, @Clase_ID, @Fecha);
+            -- Obtener la primera clase
+            FETCH NEXT FROM ClaseCursor INTO @Clase_ID, @DiaSemana, @Hora_Inicio, @Hora_Fin;
 
-    -- Reducir el número de registros restantes
-    SET @NumRegistros = @NumRegistros - 1;
+            -- Bucle a través de las clases para cada estudiante
+            WHILE @@FETCH_STATUS = 0
+            BEGIN
+                -- Verificar si la clase ocurre en el día actual
+                IF @DiaSemana = Día_Semana
+                BEGIN
+                    -- Verificar si el estudiante asistirá a más de un turno (probabilidad del 30%)
+                    IF (ABS(CHECKSUM(NEWID())) % 100) < 30
+                    BEGIN
+                        -- Establecer hora de inicio temprana y hora de fin tardía
+                        SET @Hora_Inicio = '08:00'; -- Hora de inicio temprana
+                        SET @Hora_Fin = '18:00';    -- Hora de fin tardía
+
+                        -- Insertar un registro de asistencia para un día completo
+                        INSERT INTO Asistencia (Estudiante_ID, Clase_ID, Fecha, Hora_inicio, Hora_fin)
+                        VALUES (@Estudiante_ID, @Clase_ID, @Fecha, @Hora_Inicio, @Hora_Fin);
+                    END
+                    ELSE
+                    BEGIN
+                        -- Insertar un registro de asistencia para la hora de la clase específica
+                        INSERT INTO Asistencia (Estudiante_ID, Clase_ID, Fecha, Hora_inicio, Hora_fin)
+                        VALUES (@Estudiante_ID, @Clase_ID, @Fecha, @Hora_Inicio, @Hora_Fin);
+                    END
+                END
+
+                -- Obtener la siguiente clase
+                FETCH NEXT FROM ClaseCursor INTO @Clase_ID, @DiaSemana, @Hora_Inicio, @Hora_Fin;
+            END
+
+            -- Cerrar y liberar el cursor de clases
+            CLOSE ClaseCursor;
+            DEALLOCATE ClaseCursor;
+        END
+
+        -- Avanzar a la siguiente fecha
+        SET @Fecha = DATEADD(DAY, 1, @Fecha);
+    END
+
+    -- Obtener el siguiente estudiante
+    FETCH NEXT FROM EstudianteCursor INTO @Estudiante_ID;
 END
 
-select * from Asistencia
+-- Cerrar y liberar el cursor de estudiantes
+CLOSE EstudianteCursor;
+DEALLOCATE EstudianteCursor;
