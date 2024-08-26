@@ -83,8 +83,7 @@ CLOSE EstudianteCursor;
 DEALLOCATE EstudianteCursor;
 
 
-
--- Inserccion de datos de las tablas Asistencia
+-- Inserción de datos de las tablas Asistencia
 
 -- Variables de configuración
 DECLARE @FechaInicio DATE = '2024-01-08'; -- Fecha de inicio de las asistencias
@@ -93,10 +92,13 @@ DECLARE @DiaSemana NVARCHAR(10);
 
 -- Variables para almacenar datos temporales
 DECLARE @Estudiante_ID INT;
+
+select* from Asistencia
 DECLARE @Clase_ID INT;
 DECLARE @Fecha DATE;
 DECLARE @Hora_Inicio TIME;
 DECLARE @Hora_Fin TIME;
+DECLARE @DiaSemanaClase NVARCHAR(10);
 
 -- Cursores para recorrer los estudiantes y clases
 DECLARE EstudianteCursor CURSOR FOR
@@ -120,50 +122,50 @@ BEGIN
     -- Bucle a través de las fechas hasta la fecha actual
     WHILE @Fecha <= @FechaFin
     BEGIN
-        -- Obtener el día de la semana en formato textual
-        SET @DiaSemana = DATENAME(WEEKDAY, @Fecha);
+        
+		 -- Obtener el día de la semana en formato textual
+        SET @DiaSemana = CASE DATENAME(WEEKDAY, @Fecha)
+                            WHEN 'Monday' THEN 'Lunes'
+                            WHEN 'Tuesday' THEN 'Martes'
+                            WHEN 'Wednesday' THEN 'Miércoles'
+                            WHEN 'Thursday' THEN 'Jueves'
+                            WHEN 'Friday' THEN 'Viernes'
+                            WHEN 'Saturday' THEN 'Sábado'
+                            WHEN 'Sunday' THEN 'Domingo'
+                         END;
 
         -- Verificar si el estudiante asistirá (probabilidad del 70%)
         IF (ABS(CHECKSUM(NEWID())) % 100) < 70
         BEGIN
+            PRINT 'Estudiante asistirá, Fecha: ' + CAST(@Fecha AS VARCHAR) + ', DiaSemana: ' + @DiaSemana;
+
             -- Abrir el cursor de clases
             OPEN ClaseCursor;
 
             -- Obtener la primera clase
-            FETCH NEXT FROM ClaseCursor INTO @Clase_ID, @DiaSemana, @Hora_Inicio, @Hora_Fin;
+            FETCH NEXT FROM ClaseCursor INTO @Clase_ID, @DiaSemanaClase, @Hora_Inicio, @Hora_Fin;
 
             -- Bucle a través de las clases para cada estudiante
             WHILE @@FETCH_STATUS = 0
             BEGIN
-                -- Verificar si la clase ocurre en el día actual
-                IF @DiaSemana = Día_Semana
-                BEGIN
-                    -- Verificar si el estudiante asistirá a más de un turno (probabilidad del 30%)
-                    IF (ABS(CHECKSUM(NEWID())) % 100) < 30
-                    BEGIN
-                        -- Establecer hora de inicio temprana y hora de fin tardía
-                        SET @Hora_Inicio = '08:00'; -- Hora de inicio temprana
-                        SET @Hora_Fin = '18:00';    -- Hora de fin tardía
+                PRINT 'Clase_ID: ' + CAST(@Clase_ID AS VARCHAR) + ', DiaSemanaClase: ' + @DiaSemanaClase;
 
-                        -- Insertar un registro de asistencia para un día completo
-                        INSERT INTO Asistencia (Estudiante_ID, Clase_ID, Fecha, Hora_inicio, Hora_fin)
-                        VALUES (@Estudiante_ID, @Clase_ID, @Fecha, @Hora_Inicio, @Hora_Fin);
-                    END
-                    ELSE
-                    BEGIN
-                        -- Insertar un registro de asistencia para la hora de la clase específica
-                        INSERT INTO Asistencia (Estudiante_ID, Clase_ID, Fecha, Hora_inicio, Hora_fin)
-                        VALUES (@Estudiante_ID, @Clase_ID, @Fecha, @Hora_Inicio, @Hora_Fin);
-                    END
+                -- Verificar si la clase ocurre en el día actual
+                IF @DiaSemana = @DiaSemanaClase
+                BEGIN
+                    PRINT 'Insertando asistencia para Clase_ID: ' + CAST(@Clase_ID AS VARCHAR);
+
+                    -- Insertar un registro de asistencia para la hora de la clase específica
+                    INSERT INTO Asistencia (Estudiante_ID, Clase_ID, Fecha, Día_Semana, Hora_inicio, Hora_fin)
+                    VALUES (@Estudiante_ID, @Clase_ID, @Fecha, @DiaSemana, @Hora_Inicio, @Hora_Fin);
                 END
 
                 -- Obtener la siguiente clase
-                FETCH NEXT FROM ClaseCursor INTO @Clase_ID, @DiaSemana, @Hora_Inicio, @Hora_Fin;
+                FETCH NEXT FROM ClaseCursor INTO @Clase_ID, @DiaSemanaClase, @Hora_Inicio, @Hora_Fin;
             END
 
-            -- Cerrar y liberar el cursor de clases
+            -- Cerrar el cursor de clases
             CLOSE ClaseCursor;
-            DEALLOCATE ClaseCursor;
         END
 
         -- Avanzar a la siguiente fecha
@@ -177,3 +179,6 @@ END
 -- Cerrar y liberar el cursor de estudiantes
 CLOSE EstudianteCursor;
 DEALLOCATE EstudianteCursor;
+
+-- Liberar el cursor de clases
+DEALLOCATE ClaseCursor;
