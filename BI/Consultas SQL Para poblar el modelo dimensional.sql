@@ -35,5 +35,13 @@ SELECT
 FROM Asistencia;
 
 
+-- Consulta para poblar fact_asistencia (Tabla hechos)
 
--- Consulta para poblar fact_asistencia
+SELECT
+    ID_Asistencia ,
+    Estudiante_ID AS ID_Estudiante,
+    Clase_ID AS ID_Clase,
+    Fecha AS ID_Fecha
+FROM 
+    Asistencia;
+
